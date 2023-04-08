@@ -11,7 +11,7 @@ public abstract class CommonPlayer {
 	protected BufferedImage image;
 	protected int speed;
 	protected int imageIndex;
-	public abstract BufferedImage defaultImgae();
+	public abstract BufferedImage defaultImage();
 	public abstract BufferedImage walk();
 //	private BufferedImage walk() {
 //		return image.getSubimage(61, 237, 73, 97); 

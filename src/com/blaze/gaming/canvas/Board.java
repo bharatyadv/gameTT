@@ -1,12 +1,15 @@
 package com.blaze.gaming.canvas;
 
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import com.blaze.gaming.sprites.OppnPlayer;
 import com.blaze.gaming.sprites.Player;
@@ -16,6 +19,18 @@ public class Board extends JPanel implements GameConstants {
 	BufferedImage imageBg;
 	private Player player;
 	private OppnPlayer oppnPlayer;
+	private Timer timer;
+	private void gameLoop() {
+		timer = new Timer(50, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				repaint();
+			}
+		});
+		timer.start();
+	}
 	public Board() throws Exception {
 		player = new Player();
 		oppnPlayer = new OppnPlayer();

@@ -38,7 +38,7 @@ public class Player extends CommonPlayer implements GameConstants {
 	@Override
 	public BufferedImage defaultImage() {
 		if(imageIndex>5)
-			imgageIndex=0;
+			imageIndex=0;
 		
 		BufferedImage img = walkImage[imageIndex];
 		imageIndex++;
@@ -49,6 +49,7 @@ public class Player extends CommonPlayer implements GameConstants {
 	public BufferedImage walk() {
 	return image.getSubimage(ls1,ls2,ls3,ls4); 
 }
+	
 	
 
 	
