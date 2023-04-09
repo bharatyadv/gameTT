@@ -15,6 +15,7 @@ public interface GameConstants {
 	//walk method sprite values
 	//left player
 	int ls1=61, ls2=237, ls3=73, ls4=97;
+
 	//right player
 	int rs1=659,rs2=2,rs3=51,rs4=87;
 	

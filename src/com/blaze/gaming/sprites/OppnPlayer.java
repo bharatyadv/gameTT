@@ -1,6 +1,7 @@
 package com.blaze.gaming.sprites;
 
 import java.awt.image.BufferedImage;
+
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -19,5 +20,10 @@ public class OppnPlayer extends CommonPlayer implements GameConstants {
 	public BufferedImage walk() {
 	return image.getSubimage(rs1,rs2,rs3,rs4); 
 }
+	@Override
+	public BufferedImage defaultImage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

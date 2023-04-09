@@ -19,6 +19,7 @@ public class GameFrame extends JFrame implements GameConstants {
 		add(board);
 		setVisible(true);
 		setResizable(false);
+		
 
 	}
 	

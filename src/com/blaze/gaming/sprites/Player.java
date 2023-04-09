@@ -16,6 +16,7 @@ public class Player extends CommonPlayer implements GameConstants {
 		w = h = player_dimension;
 		y = FLOOR - h;
 		loadwalkImage();
+		loadkickImage();
 		
 	}
 	private void loadwalkImage() {
@@ -27,7 +28,7 @@ public class Player extends CommonPlayer implements GameConstants {
 		walkImage[5] = image.getSubimage(453, 237, 73, 97);
 	}
 	
-	private void lodakickImage() {
+	private void loadkickImage() {
 		kickImage[0] = image.getSubimage(37, 1044, 73, 102);
 		kickImage[1] = image.getSubimage(120, 1044, 73, 102);
 		kickImage[2] = image.getSubimage(202, 1044, 118, 104);
@@ -44,11 +45,16 @@ public class Player extends CommonPlayer implements GameConstants {
 		imageIndex++;
 		return img;
 	}
-	
 	@Override
 	public BufferedImage walk() {
-	return image.getSubimage(ls1,ls2,ls3,ls4); 
-}
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+//	@Override
+//	public BufferedImage walk() {
+//	return image.getSubimage(ls1,ls2,ls3,ls4); 
+//}
 	
 	
 

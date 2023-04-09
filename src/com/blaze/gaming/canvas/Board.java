@@ -21,7 +21,7 @@ public class Board extends JPanel implements GameConstants {
 	private OppnPlayer oppnPlayer;
 	private Timer timer;
 	private void gameLoop() {
-		timer = new Timer(50, new ActionListener() {
+		timer = new Timer(100, new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -37,6 +37,7 @@ public class Board extends JPanel implements GameConstants {
 		loadBg();
 		setFocusable(true);
 		bindEvents();
+		gameLoop();
 		
 		
 }
@@ -47,7 +48,7 @@ public class Board extends JPanel implements GameConstants {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Type "+e.getKeyCode()+" "+e.getKeyChar());
+				//System.out.println("Type "+e.getKeyCode()+" "+e.getKeyChar());
 			}
 
 			@Override
@@ -56,33 +57,33 @@ public class Board extends JPanel implements GameConstants {
 				if(e.getKeyCode()==KeyEvent.VK_A) {
 					player.setSpeed(-speed);
 					player.move();
-					repaint();
+					//repaint();
 				}
 				if(e.getKeyCode()==KeyEvent.VK_D) {
 					player.setSpeed(speed);
 					player.move();
-					repaint();
+					//repaint();
 				}
 				
 				//right player
 				if(e.getKeyCode()==KeyEvent.VK_LEFT) {
 					oppnPlayer.setSpeed(-speed);
 					oppnPlayer.move();
-					repaint();
+					//repaint();
 				}
 				if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
 					oppnPlayer.setSpeed(speed);
 					oppnPlayer.move();
-					repaint();
+					//repaint();
 				}
 				// TODO Auto-generated method stub
-				System.out.println("Pressed "+e.getKeyCode()+" "+e.getKeyChar());
+				//System.out.println("Pressed "+e.getKeyCode()+" "+e.getKeyChar());
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Release "+e.getKeyCode()+" "+e.getKeyChar());
+				//System.out.println("Release "+e.getKeyCode()+" "+e.getKeyChar());
 			}
 			
 		};

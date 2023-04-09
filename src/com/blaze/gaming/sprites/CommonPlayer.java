@@ -17,8 +17,10 @@ public abstract class CommonPlayer {
 //		return image.getSubimage(61, 237, 73, 97); 
 //	}
 	public void drawPlayer(Graphics pen) {
+		pen.drawImage(defaultImage(),x,y,w,h,null);
 		pen.drawImage(walk(),x,y,w,h,null);
 	}
+	
 	public void move() {
 		x = x + speed;
 	}
