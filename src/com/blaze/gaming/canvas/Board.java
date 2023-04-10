@@ -59,10 +59,16 @@ public class Board extends JPanel implements GameConstants {
 					player.move();
 					//repaint();
 				}
-				if(e.getKeyCode()==KeyEvent.VK_D) {
+				else if(e.getKeyCode()==KeyEvent.VK_D) {
 					player.setSpeed(speed);
 					player.move();
 					//repaint();
+				}
+				else if(e.getKeyCode()==KeyEvent.VK_K) {
+					player.setCurrentMove(kick);
+				}
+				else if(e.getKeyCode()==KeyEvent.VK_P) {
+					player.setCurrentMove(punch);
 				}
 				
 				//right player

@@ -11,8 +11,16 @@ public abstract class CommonPlayer {
 	protected BufferedImage image;
 	protected int speed;
 	protected int imageIndex;
+	protected int currentMove;
+	public int getCurrentMove() {
+		return currentMove;
+	}
+	public void setCurrentMove(int currentMove) {
+		this.currentMove = currentMove;
+	}
 	public abstract BufferedImage defaultImage();
 	public abstract BufferedImage walk();
+	
 //	private BufferedImage walk() {
 //		return image.getSubimage(61, 237, 73, 97); 
 //	}

@@ -10,6 +10,7 @@ public class Player extends CommonPlayer implements GameConstants {
 	
 	private BufferedImage walkImage[] = new BufferedImage[6];
 	private BufferedImage kickImage[] = new BufferedImage[6];
+	private BufferedImage punchImage[] = new BufferedImage[6];
 	public Player() throws Exception {
 		image = ImageIO.read(Player.class.getResource(player_img));
 		x = 100;
@@ -17,6 +18,7 @@ public class Player extends CommonPlayer implements GameConstants {
 		y = FLOOR - h;
 		loadwalkImage();
 		loadkickImage();
+		loadpunchImage();
 		
 	}
 	private void loadwalkImage() {
@@ -36,14 +38,56 @@ public class Player extends CommonPlayer implements GameConstants {
 		kickImage[4] = image.getSubimage(404,1044, 73, 102);
 		kickImage[5] = image.getSubimage(482, 1048, 97, 102);
 	}
-	@Override
-	public BufferedImage defaultImage() {
+	
+	private void loadpunchImage() {
+		punchImage[0] = image.getSubimage(25, 822, 69, 98);
+		punchImage[1] = image.getSubimage(107, 822, 69, 98);
+		punchImage[2] = image.getSubimage(187, 822, 116, 98);
+		punchImage[3] = image.getSubimage(307, 822, 69, 98);
+		punchImage[4] = image.getSubimage(403, 822, 109, 98);
+		punchImage[5] = image.getSubimage(516, 822, 69, 98);
+	}
+	
+	private BufferedImage printWalk() {
 		if(imageIndex>5)
 			imageIndex=0;
 		
 		BufferedImage img = walkImage[imageIndex];
 		imageIndex++;
 		return img;
+	}
+	private BufferedImage printKick() {
+		if(imageIndex>5) {
+			imageIndex=0;
+			currentMove=walk;
+		}
+		BufferedImage img = kickImage[imageIndex];
+		imageIndex++;
+		return img;
+		
+	}
+	private BufferedImage printPunch() {
+		if(imageIndex>5) {
+			imageIndex=0;
+			currentMove=walk;
+		}
+		BufferedImage img = punchImage[imageIndex];
+		imageIndex++;
+		return img;
+		
+	}
+	@Override
+	public BufferedImage defaultImage() {
+	
+		if(currentMove==kick) {
+			return printKick();
+		}
+		else if(currentMove==punch) {
+			return printPunch();
+		}
+		else{
+			return printWalk();
+		}
 	}
 	@Override
 	public BufferedImage walk() {

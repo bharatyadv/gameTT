@@ -7,6 +7,10 @@ public interface GameConstants {
 	int FLOOR= GHEIGHT - 100;
 	int speed = 20;
 	int player_dimension=250;
+	int walk=1;
+	int kick=2;
+	int punch=3;
+	
 	
 	String bg_img = "bg.jpg";
 	String player_img = "ryu.gif";
