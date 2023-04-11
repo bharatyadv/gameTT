@@ -13,6 +13,7 @@ import javax.swing.Timer;
 
 import com.blaze.gaming.sprites.OppnPlayer;
 import com.blaze.gaming.sprites.Player;
+import com.blaze.gaming.sprites.Power;
 import com.blaze.gaming.utils.GameConstants;
 
 public class Board extends JPanel implements GameConstants {
@@ -20,6 +21,8 @@ public class Board extends JPanel implements GameConstants {
 	private Player player;
 	private OppnPlayer oppnPlayer;
 	private Timer timer;
+	private Power playerFullPower;
+	private Power oppnFullPower;
 	private void gameLoop() {
 		timer = new Timer(100, new ActionListener() {
 			
@@ -27,9 +30,50 @@ public class Board extends JPanel implements GameConstants {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				repaint();
+				player.fall();
+				oppnPlayer.fall();
+				collision();
 			}
 		});
 		timer.start();
+	}
+	private void loadPower() {
+		playerFullPower= new Power(30,"Player");
+		oppnFullPower= new Power(GWIDTH-550,"OppnPlayer");
+	}
+	private void printFullPower(Graphics g) {
+		playerFullPower.printRectangle(g);
+		oppnFullPower.printRectangle(g);
+		
+	}
+	private boolean isCollide() {
+		int xDist= Math.abs(player.getX()-oppnPlayer.getX());
+		int yDist= Math.abs(player.getY()-oppnPlayer.getY());
+		int maxH= Math.max(player.getH(), oppnPlayer.getH());
+		int maxW= Math.max(player.getW(), oppnPlayer.getW());
+		return xDist<=(maxW-40) && yDist<=(maxH-40);
+	}
+	private void collision() {
+		if(isCollide()) {
+			if(player.isAttacking()) {
+				oppnPlayer.setCurrentMove(DAMAGE);
+				//oppnPlayer.setCurrentMove(walk);
+			}
+			if(oppnPlayer.isAttacking()) {
+				player.setCurrentMove(DAMAGE);
+			}
+			player.setSpeed(0);
+			player.setCollide(true);
+			oppnPlayer.setSpeed(0);
+			oppnPlayer.setCollide(true);
+			
+		}
+		else {
+			player.setCollide(false);
+			player.setSpeed(speed);
+			oppnPlayer.setCollide(false);
+			oppnPlayer.setSpeed(speed);
+		}
 	}
 	public Board() throws Exception {
 		player = new Player();
@@ -38,6 +82,8 @@ public class Board extends JPanel implements GameConstants {
 		setFocusable(true);
 		bindEvents();
 		gameLoop();
+		loadPower();
+		
 		
 		
 }
@@ -56,6 +102,7 @@ public class Board extends JPanel implements GameConstants {
 				//left player
 				if(e.getKeyCode()==KeyEvent.VK_A) {
 					player.setSpeed(-speed);
+					player.setCollide(false);
 					player.move();
 					//repaint();
 				}
@@ -64,23 +111,44 @@ public class Board extends JPanel implements GameConstants {
 					player.move();
 					//repaint();
 				}
-				else if(e.getKeyCode()==KeyEvent.VK_K) {
+				else if(e.getKeyCode()==KeyEvent.VK_E) {
 					player.setCurrentMove(kick);
+					
 				}
-				else if(e.getKeyCode()==KeyEvent.VK_P) {
+				else if(e.getKeyCode()==KeyEvent.VK_Q) {
 					player.setCurrentMove(punch);
+					
+				}
+				else if(e.getKeyCode()==KeyEvent.VK_W) {
+					
+					player.jump();
 				}
 				
 				//right player
 				if(e.getKeyCode()==KeyEvent.VK_LEFT) {
 					oppnPlayer.setSpeed(-speed);
+					
 					oppnPlayer.move();
 					//repaint();
 				}
-				if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
+				
+				else if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
 					oppnPlayer.setSpeed(speed);
+					oppnPlayer.setCollide(false);
 					oppnPlayer.move();
 					//repaint();
+				}
+				else if(e.getKeyCode()==KeyEvent.VK_UP) {
+					
+					oppnPlayer.jump();
+				}
+				else if(e.getKeyCode()==KeyEvent.VK_K) {
+					oppnPlayer.setCurrentMove(kick);
+					
+				}
+				else if(e.getKeyCode()==KeyEvent.VK_P) {
+					
+					oppnPlayer.setCurrentMove(punch);
 				}
 				// TODO Auto-generated method stub
 				//System.out.println("Pressed "+e.getKeyCode()+" "+e.getKeyChar());
@@ -100,6 +168,7 @@ public class Board extends JPanel implements GameConstants {
 		printBg(pen);
 		player.drawPlayer(pen);
 		oppnPlayer.drawPlayer(pen);
+		printFullPower(pen);
 	}
 	
 	

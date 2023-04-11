@@ -2,8 +2,9 @@ package com.blaze.gaming.sprites;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import com.blaze.gaming.utils.*;
 
-public abstract class CommonPlayer {
+public abstract class Sprite {
 	protected int x;
 	protected int y;
 	protected int w;
@@ -12,6 +13,35 @@ public abstract class CommonPlayer {
 	protected int speed;
 	protected int imageIndex;
 	protected int currentMove;
+	protected int force =0;
+	protected boolean isJump;
+	protected boolean isCollide;
+	protected boolean isAttacking;
+	protected int health;
+	public Sprite() {
+		health=100;
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health =(int)(health-(GameConstants.MAX_HEALTH*0.1));
+	}
+
+	public boolean isAttacking() {
+		return isAttacking;
+	}
+	public void setAttacking(boolean isAttacking) {
+		this.isAttacking = isAttacking;
+	}
+	public boolean isCollide() {
+		return isCollide;
+	}
+	public void setCollide(boolean isCollide) {
+		this.isCollide = isCollide;
+	}
 	public int getCurrentMove() {
 		return currentMove;
 	}
@@ -19,20 +49,21 @@ public abstract class CommonPlayer {
 		this.currentMove = currentMove;
 	}
 	public abstract BufferedImage defaultImage();
-	public abstract BufferedImage walk();
+	//public abstract BufferedImage walk();
 	
 //	private BufferedImage walk() {
 //		return image.getSubimage(61, 237, 73, 97); 
 //	}
 	public void drawPlayer(Graphics pen) {
 		pen.drawImage(defaultImage(),x,y,w,h,null);
-		pen.drawImage(walk(),x,y,w,h,null);
+		//pen.drawImage(walk(),x,y,w,h,null);
 	}
 	
 	public void move() {
+		if(!isCollide)
 		x = x + speed;
 	}
-	public int getX() {
+	public  int getX() {
 		return x;
 	}
 	public void setX(int x) {

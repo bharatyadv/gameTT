@@ -6,11 +6,12 @@ import javax.imageio.ImageIO;
 
 import com.blaze.gaming.utils.GameConstants;
 
-public class Player extends CommonPlayer implements GameConstants {
+public class Player extends Sprite implements GameConstants {
 	
 	private BufferedImage walkImage[] = new BufferedImage[6];
 	private BufferedImage kickImage[] = new BufferedImage[6];
 	private BufferedImage punchImage[] = new BufferedImage[6];
+			BufferedImage damageEffect[] = new BufferedImage[5];
 	public Player() throws Exception {
 		image = ImageIO.read(Player.class.getResource(player_img));
 		x = 100;
@@ -19,6 +20,15 @@ public class Player extends CommonPlayer implements GameConstants {
 		loadwalkImage();
 		loadkickImage();
 		loadpunchImage();
+		loaddamageEffect();
+		
+	}
+	public void loaddamageEffect() {
+		damageEffect[0] = image.getSubimage(63, 237, 73, 97);
+		damageEffect[1] = image.getSubimage(223,2425,69,96);
+		damageEffect[2] = image.getSubimage(302,2424,82,100);
+		damageEffect[3] = image.getSubimage(392,2422,87,100);
+		damageEffect[4] = image.getSubimage(124,2422,80,92);
 		
 	}
 	private void loadwalkImage() {
@@ -47,8 +57,25 @@ public class Player extends CommonPlayer implements GameConstants {
 		punchImage[4] = image.getSubimage(403, 822, 109, 98);
 		punchImage[5] = image.getSubimage(516, 822, 69, 98);
 	}
+	public void jump() {
+		if(!isJump) {
+			isJump=true;
+			force=-50;
+			y=y+force;
+		}
+		
+	}
+	public void fall() {
+		if(y>=(FLOOR-h)) {
+			isJump=false;
+			return;
+		}
+		y=y+force;
+		force=force+GRAVITY;
+	}
 	
 	private BufferedImage printWalk() {
+		isAttacking=false;
 		if(imageIndex>5)
 			imageIndex=0;
 		
@@ -60,7 +87,9 @@ public class Player extends CommonPlayer implements GameConstants {
 		if(imageIndex>5) {
 			imageIndex=0;
 			currentMove=walk;
+			isAttacking=false;
 		}
+		isAttacking = true;
 		BufferedImage img = kickImage[imageIndex];
 		imageIndex++;
 		return img;
@@ -70,12 +99,31 @@ public class Player extends CommonPlayer implements GameConstants {
 		if(imageIndex>5) {
 			imageIndex=0;
 			currentMove=walk;
+			isAttacking=false;
 		}
+		isAttacking = true;
 		BufferedImage img = punchImage[imageIndex];
 		imageIndex++;
 		return img;
 		
 	}
+	public BufferedImage printDamage() {
+		if(imageIndex>4) {
+			imageIndex=0;
+			currentMove=walk;
+		}
+		BufferedImage img = damageEffect[imageIndex];
+		imageIndex++;
+		return img;
+	}
+//	private BufferedImage printDamage() {
+//		if(imageIndex>5)
+//			imageIndex=0;
+//		
+//		BufferedImage img = Image[imageIndex];
+//		imageIndex++;
+//		return img;
+//	}
 	@Override
 	public BufferedImage defaultImage() {
 	
@@ -85,15 +133,18 @@ public class Player extends CommonPlayer implements GameConstants {
 		else if(currentMove==punch) {
 			return printPunch();
 		}
+		else if(currentMove==DAMAGE) {
+			return printDamage();
+		}
 		else{
 			return printWalk();
 		}
 	}
-	@Override
-	public BufferedImage walk() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public BufferedImage walk() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	
 //	@Override
 //	public BufferedImage walk() {

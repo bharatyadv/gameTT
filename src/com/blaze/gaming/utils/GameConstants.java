@@ -10,8 +10,9 @@ public interface GameConstants {
 	int walk=1;
 	int kick=2;
 	int punch=3;
-	
-	
+	int GRAVITY =20;
+	int DAMAGE = 5;
+	static int MAX_HEALTH=500;
 	String bg_img = "bg.jpg";
 	String player_img = "ryu.gif";
 	String oppn_player_img = "goku1.png";
