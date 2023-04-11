@@ -1,5 +1,7 @@
 package com.blaze.gaming.canvas;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +25,7 @@ public class Board extends JPanel implements GameConstants {
 	private Timer timer;
 	private Power playerFullPower;
 	private Power oppnFullPower;
+	private boolean gameOver;
 	private void gameLoop() {
 		timer = new Timer(100, new ActionListener() {
 			
@@ -30,9 +33,13 @@ public class Board extends JPanel implements GameConstants {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				repaint();
+				if(gameOver) {
+					timer.stop();
+				}
 				player.fall();
 				oppnPlayer.fall();
 				collision();
+				isGameOver();
 			}
 		});
 		timer.start();
@@ -57,10 +64,13 @@ public class Board extends JPanel implements GameConstants {
 		if(isCollide()) {
 			if(player.isAttacking()) {
 				oppnPlayer.setCurrentMove(DAMAGE);
+				oppnFullPower.setHealth();
 				//oppnPlayer.setCurrentMove(walk);
 			}
 			if(oppnPlayer.isAttacking()) {
 				player.setCurrentMove(DAMAGE);
+				playerFullPower.setHealth();
+				
 			}
 			player.setSpeed(0);
 			player.setCollide(true);
@@ -75,6 +85,21 @@ public class Board extends JPanel implements GameConstants {
 			oppnPlayer.setSpeed(speed);
 		}
 	}
+	
+	private void isGameOver() {
+		if(oppnFullPower.getHealth()<0 || playerFullPower.getHealth()<0) {
+			gameOver= true;
+		}
+	}
+	
+	private void printGameOver(Graphics pen) {
+		if(gameOver) {
+		pen.setColor(Color.RED);
+		pen.setFont(new Font("Times",Font.BOLD, 50));
+		pen.drawString("Game Over", GWIDTH/2-100,GHEIGHT/2-100);
+		}
+	}
+	
 	public Board() throws Exception {
 		player = new Player();
 		oppnPlayer = new OppnPlayer();
@@ -169,6 +194,7 @@ public class Board extends JPanel implements GameConstants {
 		player.drawPlayer(pen);
 		oppnPlayer.drawPlayer(pen);
 		printFullPower(pen);
+		printGameOver(pen);
 	}
 	
 	

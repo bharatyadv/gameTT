@@ -19,15 +19,15 @@ public abstract class Sprite {
 	protected boolean isAttacking;
 	protected int health;
 	public Sprite() {
-		health=100;
+		health=500;
 	}
 	
 	public int getHealth() {
 		return health;
 	}
 
-	public void setHealth(int health) {
-		this.health =(int)(health-(GameConstants.MAX_HEALTH*0.1));
+	public void setHealth() {
+		this.health =(int)(this.health-(GameConstants.MAX_HEALTH*0.01));
 	}
 
 	public boolean isAttacking() {

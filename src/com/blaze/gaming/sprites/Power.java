@@ -21,7 +21,7 @@ public class Power extends Sprite{
 		pen.setColor(Color.RED);
 		pen.fillRect(x,y,w,h);
 		pen.setColor(Color.GREEN);
-		pen.fillRect(x,y,w,h);
+		pen.fillRect(x,y,getHealth(),h);
 		pen.setColor(Color.WHITE);
 		pen.setFont(new Font ("Times", Font.BOLD,30));
 		pen.drawString(playerName, x, y+80);
