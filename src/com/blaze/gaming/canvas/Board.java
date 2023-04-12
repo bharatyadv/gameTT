@@ -94,7 +94,7 @@ public class Board extends JPanel implements GameConstants {
 	
 	private void printGameOver(Graphics pen) {
 		if(gameOver) {
-		pen.setColor(Color.RED);
+		pen.setColor(Color.BLACK);
 		pen.setFont(new Font("Times",Font.BOLD, 50));
 		pen.drawString("Game Over", GWIDTH/2-100,GHEIGHT/2-100);
 		}
