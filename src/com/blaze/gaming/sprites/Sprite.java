@@ -1,6 +1,7 @@
 package com.blaze.gaming.sprites;
 
 import java.awt.Graphics;
+
 import java.awt.image.BufferedImage;
 import com.blaze.gaming.utils.*;
 
